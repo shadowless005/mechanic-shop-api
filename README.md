@@ -97,3 +97,19 @@ All API endpoints were tested using Postman.
 **Matthew Shin**
 
 Coding Temple Software Engineering Bootcamp
+
+
+## Local setup and recording
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m flask --app "application:create_app()" run
+```
+
+The local Config defaults to a separate SQLite demo database. Existing MySQL data is not deleted or migrated. To use your existing database, export DATABASE_URL with its connection URI before starting. Do not commit credentials. Use disposable demo accounts only. 
+
+Import `Mechanic Shop API.postman_collection.json` into Postman. Its base_url defaults to http://127.0.0.1:5000. Run requests in order: created IDs and login tokens are saved as collection variables. Use a fresh run_id for repeated demos. Customer creation is limited to three requests per hour in the advanced versions; restart the local demo server after rehearsing if needed. Do not reset a deployed service just for recording.
+
+For a local `.env`, copy `.env.example` to `.env`, set your values, then load it in your shell with `set -a; source .env; set +a` before starting. Never commit `.env`.

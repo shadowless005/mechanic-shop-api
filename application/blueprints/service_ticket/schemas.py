@@ -1,8 +1,11 @@
+from marshmallow import fields
 from application.extensions import ma
 from application.models import ServiceTicket
 
 
 class ServiceTicketSchema(ma.SQLAlchemyAutoSchema):
+    mechanics = fields.Function(lambda ticket: [item.id for item in ticket.mechanics], dump_only=True)
+
     class Meta:
         model = ServiceTicket
         include_fk = True

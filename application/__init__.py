@@ -1,5 +1,5 @@
 from flask import Flask
-from .extensions import db, ma
+from application.extensions import db, ma
 from config import Config
 
 def create_app():
@@ -9,7 +9,7 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
 
-    from . import models
+    import application.models as models
 
     with app.app_context():
         db.create_all()
