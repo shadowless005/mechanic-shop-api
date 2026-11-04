@@ -76,3 +76,20 @@ def remove_mechanic(ticket_id, mechanic_id):
         db.session.commit()
 
     return service_ticket_schema.jsonify(ticket), 200
+
+
+# DELETE A SERVICE TICKET BY ID
+@service_ticket_bp.route("/<int:ticket_id>", methods=["DELETE"])
+def delete_service_ticket(ticket_id):
+    ticket = db.session.get(ServiceTicket, ticket_id)
+
+    if not ticket:
+        return jsonify({"error": "Service ticket not found."}), 404
+
+    ticket.mechanics.clear()
+    db.session.delete(ticket)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Service ticket deleted successfully."
+    }), 200
