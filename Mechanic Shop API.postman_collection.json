@@ -1,16 +1,512 @@
 {
   "info": {
-    "name": "mechanic-shop-api \u2014 complete endpoint demos",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "_postman_id": "63df326f-a318-4a72-a54b-b989c6882cf6",
+    "name": "mechanic-shop-api — complete endpoint demos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56349732",
+    "_collection_link": "https://go.postman.co/collection/56349732-63df326f-a318-4a72-a54b-b989c6882cf6?source=collection_link"
   },
-  "variable": [
+  "item": [
     {
-      "key": "base_url",
-      "value": "http://127.0.0.1:5000"
+      "name": "01 Create customer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"customer_id\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Demo Customer\",\n  \"email\": \"customer{{run_id}}@example.com\",\n  \"phone\": \"c{{run_id}}\",\n  \"address\": \"123 Demo Street\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/customers/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customers",
+            ""
+          ]
+        }
+      },
+      "response": []
     },
     {
-      "key": "run_id",
-      "value": ""
+      "name": "Read customers page 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/customers/?page=1&per_page=1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customers",
+            ""
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "per_page",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read customer by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/customers/{{customer_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customers",
+            "{{customer_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update customer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Demo Customer\",\n  \"email\": \"customer{{run_id}}@example.com\",\n  \"phone\": \"c{{run_id}}\",\n  \"address\": \"123 Demo Street\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/customers/{{customer_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customers",
+            "{{customer_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create mechanic",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"mechanic_id\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Demo Mechanic\",\n  \"email\": \"mechanic{{run_id}}@example.com\",\n  \"phone\": \"m{{run_id}}\",\n  \"address\": \"456 Demo Street\",\n  \"salary\": 55000\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/mechanics/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mechanics",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read mechanics",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/mechanics/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mechanics",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update mechanic",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Demo Mechanic\",\n  \"email\": \"mechanic{{run_id}}@example.com\",\n  \"phone\": \"m{{run_id}}\",\n  \"address\": \"456 Demo Street\",\n  \"salary\": 56000\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/mechanics/{{mechanic_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mechanics",
+            "{{mechanic_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create ticket",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"ticket_id\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Demo oil change\",\n  \"vin\": \"1HGCM82633A004352\",\n  \"customer_id\": {{customer_id}}\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/service-tickets/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "service-tickets",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Assign mechanic",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/service-tickets/{{ticket_id}}/assign-mechanic/{{mechanic_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "service-tickets",
+            "{{ticket_id}}",
+            "assign-mechanic",
+            "{{mechanic_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read tickets",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/service-tickets/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "service-tickets",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remove mechanic",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/service-tickets/{{ticket_id}}/remove-mechanic/{{mechanic_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "service-tickets",
+            "{{ticket_id}}",
+            "remove-mechanic",
+            "{{mechanic_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete unassigned mechanic",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/mechanics/{{mechanic_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mechanics",
+            "{{mechanic_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create spare customer for deletion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) pm.collectionVariables.set(\"spare_customer_id\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Demo Customer\",\n  \"email\": \"spare{{run_id}}@example.com\",\n  \"phone\": \"s{{run_id}}\",\n  \"address\": \"123 Demo Street\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/customers/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customers",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete spare customer with no tickets",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/customers/{{spare_customer_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "customers",
+            "{{spare_customer_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete ticket by ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/service-tickets/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "service-tickets",
+            "2"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
@@ -24,330 +520,30 @@
       }
     }
   ],
-  "item": [
+  "variable": [
     {
-      "name": "01 Create customer",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": "{{base_url}}/customers/",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"Demo Customer\",\n  \"email\": \"customer{{run_id}}@example.com\",\n  \"phone\": \"c{{run_id}}\",\n  \"address\": \"123 Demo Street\"\n}"
-        }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
-              "if (pm.response.code === 201) pm.collectionVariables.set(\"customer_id\", pm.response.json().id);"
-            ]
-          }
-        }
-      ]
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000"
     },
     {
-      "name": "Read customers page 1",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": "{{base_url}}/customers/?page=1&per_page=1"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
+      "key": "run_id",
+      "value": ""
     },
     {
-      "name": "Read customer by ID",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": "{{base_url}}/customers/{{customer_id}}"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
+      "key": "customer_id",
+      "value": ""
     },
     {
-      "name": "Update customer",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": "{{base_url}}/customers/{{customer_id}}",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"Updated Demo Customer\",\n  \"email\": \"customer{{run_id}}@example.com\",\n  \"phone\": \"c{{run_id}}\",\n  \"address\": \"123 Demo Street\"\n}"
-        }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
+      "key": "ticket_id",
+      "value": ""
     },
     {
-      "name": "Create mechanic",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": "{{base_url}}/mechanics/",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"Demo Mechanic\",\n  \"email\": \"mechanic{{run_id}}@example.com\",\n  \"phone\": \"m{{run_id}}\",\n  \"address\": \"456 Demo Street\",\n  \"salary\": 55000\n}"
-        }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
-              "if (pm.response.code === 201) pm.collectionVariables.set(\"mechanic_id\", pm.response.json().id);"
-            ]
-          }
-        }
-      ]
+      "key": "mechanic_id",
+      "value": ""
     },
     {
-      "name": "Read mechanics",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": "{{base_url}}/mechanics/"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Update mechanic",
-      "request": {
-        "method": "PUT",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": "{{base_url}}/mechanics/{{mechanic_id}}",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"Demo Mechanic\",\n  \"email\": \"mechanic{{run_id}}@example.com\",\n  \"phone\": \"m{{run_id}}\",\n  \"address\": \"456 Demo Street\",\n  \"salary\": 56000\n}"
-        }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Create ticket",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": "{{base_url}}/service-tickets/",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"description\": \"Demo oil change\",\n  \"vin\": \"1HGCM82633A004352\",\n  \"customer_id\": {{customer_id}}\n}"
-        }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
-              "if (pm.response.code === 201) pm.collectionVariables.set(\"ticket_id\", pm.response.json().id);"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Assign mechanic",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "url": "{{base_url}}/service-tickets/{{ticket_id}}/assign-mechanic/{{mechanic_id}}"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Read tickets",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": "{{base_url}}/service-tickets/"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Remove mechanic",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "url": "{{base_url}}/service-tickets/{{ticket_id}}/remove-mechanic/{{mechanic_id}}"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Delete unassigned mechanic",
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": "{{base_url}}/mechanics/{{mechanic_id}}"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Create spare customer for deletion",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": "{{base_url}}/customers/",
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"Demo Customer\",\n  \"email\": \"spare{{run_id}}@example.com\",\n  \"phone\": \"s{{run_id}}\",\n  \"address\": \"123 Demo Street\"\n}"
-        }
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(201));",
-              "if (pm.response.code === 201) pm.collectionVariables.set(\"spare_customer_id\", pm.response.json().id);"
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "name": "Delete spare customer with no tickets",
-      "request": {
-        "method": "DELETE",
-        "header": [],
-        "url": "{{base_url}}/customers/{{spare_customer_id}}"
-      },
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Expected status\", () => pm.response.to.have.status(200));"
-            ]
-          }
-        }
-      ]
+      "key": "spare_customer_id",
+      "value": ""
     }
   ]
 }
