@@ -84,6 +84,25 @@ mechanic-shop-api/
 - PUT `/service-tickets/<ticket_id>/assign-mechanic/<mechanic_id>`
 - PUT `/service-tickets/<ticket_id>/remove-mechanic/<mechanic_id>`
 
+### Delete a Service Ticket (Optional)
+
+DELETE /service-tickets/<ticket_id>
+
+Deletes a service ticket by ID and removes its mechanic assignments.
+The customer and mechanic records remain unchanged.
+
+Example:
+DELETE http://127.0.0.1:5000/service-tickets/2
+
+No request body is required.
+
+Responses:
+
+- 200: Service ticket deleted successfully.
+- 404: Service ticket not found.
+
+This optional endpoint supports demo-data cleanup.
+
 ---
 
 ## Testing
@@ -98,7 +117,6 @@ All API endpoints were tested using Postman.
 
 Coding Temple Software Engineering Bootcamp
 
-
 ## Local setup and recording
 
 ```bash
@@ -108,7 +126,7 @@ pip install -r requirements.txt
 python -m flask --app "application:create_app()" run
 ```
 
-The local Config defaults to a separate SQLite demo database. Existing MySQL data is not deleted or migrated. To use your existing database, export DATABASE_URL with its connection URI before starting. Do not commit credentials. Use disposable demo accounts only. 
+The local Config defaults to a separate SQLite demo database. Existing MySQL data is not deleted or migrated. To use your existing database, export DATABASE_URL with its connection URI before starting. Do not commit credentials. Use disposable demo accounts only.
 
 Import `Mechanic Shop API.postman_collection.json` into Postman. Its base_url defaults to http://127.0.0.1:5000. Run requests in order: created IDs and login tokens are saved as collection variables. Use a fresh run_id for repeated demos. Customer creation is limited to three requests per hour in the advanced versions; restart the local demo server after rehearsing if needed. Do not reset a deployed service just for recording.
 
